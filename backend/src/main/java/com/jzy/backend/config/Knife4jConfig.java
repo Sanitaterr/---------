@@ -28,7 +28,7 @@ public class Knife4jConfig {
                 .paths(PathSelectors.any())
                 .build();
     }
-    private static final String API_TILE="backend";
+    private static final String API_TILE = "backend";
     //文档信息配置
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()

@@ -106,7 +106,7 @@ public class RedisCache {
      * @author jzy
      * @create 2024/3/20
      **/
-    public long deleteaObject(final Collection collection) {
+    public long deleteObject(final Collection collection) {
         return redisTemplate.delete(collection);
     }
 

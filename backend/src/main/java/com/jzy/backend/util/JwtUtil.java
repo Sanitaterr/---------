@@ -29,7 +29,7 @@ public class JwtUtil {
      * 密钥明文
      * @create 2024/3/20
      **/
-    public static final String JWT_KEY = "Sanitater";
+    public static final String JWT_KEY = "JSDFSDFSDFASJDHASDASDdfa32dJHASFDA67765asda123";
 
     /**
      *
@@ -99,6 +99,13 @@ public class JwtUtil {
     public static String createJWT(String id, String subject, Long ttlMillis) {
         JwtBuilder builder = getJwtBuilder(subject, ttlMillis, id); // 设置过期时间
         return builder.compact();
+    }
+
+    public static void main(String[] args) throws Exception {
+        String jwt = createJWT("123");
+        Claims claims = parseJWT("eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiIyYzY4MmQxY2IxNDQ0OTFjYTFmOTVmZjUzYWEyYjdmYiIsInN1YiI6IjEiLCJpc3MiOiJzZyIsImlhdCI6MTcxMTA3ODQwNCwiZXhwIjoxNzExMDgyMDA0fQ.mpxpEtf3A0G6TQXrSEUd9gDGItLBgYsIdO4C_o4rpYk");
+        String subject = claims.getSubject();
+        System.out.println(subject);
     }
 
     /**
