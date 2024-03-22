@@ -3,6 +3,7 @@ package com.jzy.backend.service.impl;
 import com.jzy.backend.DO.ResponseResult;
 import com.jzy.backend.DO.User;
 import com.jzy.backend.DTO.UserDetailsImpl;
+import com.jzy.backend.VO.LoginVO;
 import com.jzy.backend.service.LoginService;
 import com.jzy.backend.util.JwtUtil;
 import com.jzy.backend.util.RedisCache;
@@ -34,16 +35,17 @@ public class LoginServiceImpl implements LoginService {
 
     /**
      *
-     * 使用AuthenticationManager认证;
-     * 如果没通过给出对应提示;反之使用userid生成jwt存入ResponseResult返回;
-     * 把完整用户信息存入redis，userid作为key;
      * @param user
      * @return ResponseResult
      * @author jzy
      * @create 2024/3/22
      **/
     @Override
-    public ResponseResult login(User user) {
+    public LoginVO login(User user) {
+        // 使用AuthenticationManager认证
+        // 如果没通过给出对应提示;反之使用userid生成jwt存入ResponseResult返回
+        // 把完整用户信息存入redis，userid作为key
+
         UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword());
         Authentication authenticate = authenticationManager.authenticate(authenticationToken);
 
@@ -60,25 +62,24 @@ public class LoginServiceImpl implements LoginService {
 
         redisCache.setCacheObject("login: " + userid, userDetails);
 
-        return new ResponseResult(200, "登录成功", map);
+        return new LoginVO(jwt);
     }
 
     /**
      *
-     * 获取SecurityContextHolder中的用户id
-     * 删除redis中的值
      * @return ResponseResult
      * @author jzy
      * @create 2024/3/22
      **/
     @Override
-    public ResponseResult logout() {
+    public void logout() {
+        // 获取SecurityContextHolder中的用户id
+        // 删除redis中的值
+
         UsernamePasswordAuthenticationToken authentication = (UsernamePasswordAuthenticationToken) SecurityContextHolder.getContext().getAuthentication();
         UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
         Long userid = userDetails.getUser().getId();
 
         redisCache.deleteObject("login: " + userid);
-
-        return new ResponseResult(200, "注销成功");
     }
 }

@@ -23,11 +23,12 @@ public class LoginController {
 
     @PostMapping("/user/login/")
     public ResponseResult login(@RequestBody User user){
-        return loginService.login(user);
+        return new ResponseResult(200, "登录成功", loginService.login(user));
     }
 
     @PostMapping("/user/logout/")
     public ResponseResult logout() {
-        return loginService.logout();
+        loginService.logout();
+        return new ResponseResult(200, "注销成功");
     }
 }
