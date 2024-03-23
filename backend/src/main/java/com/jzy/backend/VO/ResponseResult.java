@@ -1,4 +1,4 @@
-package com.jzy.backend.DO;
+package com.jzy.backend.VO;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 

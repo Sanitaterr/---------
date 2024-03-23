@@ -1,6 +1,7 @@
 package com.jzy.backend.filter;
 
 import com.jzy.backend.DTO.UserDetailsImpl;
+import com.jzy.backend.constance.RedisConstance;
 import com.jzy.backend.util.JwtUtil;
 import com.jzy.backend.util.RedisCache;
 import io.jsonwebtoken.Claims;
@@ -51,14 +52,14 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
             throw new RuntimeException("token非法");
         }
 
-        String redisKey = "login: " + userid;
+        String redisKey = RedisConstance.LOGIN + userid;
         UserDetailsImpl userDetails = redisCache.getCacheObject(redisKey);
         if (Objects.isNull(userDetails)) {
             throw new RuntimeException("用户未登录");
         }
 
         // TODO 获取权限信息封装到Authentication中
-        UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(userDetails, null, null);
+        UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
         SecurityContextHolder.getContext().setAuthentication(authenticationToken);
 
         filterChain.doFilter(request, response);

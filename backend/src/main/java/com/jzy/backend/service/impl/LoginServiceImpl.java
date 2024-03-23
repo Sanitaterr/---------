@@ -1,9 +1,9 @@
 package com.jzy.backend.service.impl;
 
-import com.jzy.backend.DO.ResponseResult;
 import com.jzy.backend.DO.User;
 import com.jzy.backend.DTO.UserDetailsImpl;
 import com.jzy.backend.VO.LoginVO;
+import com.jzy.backend.constance.RedisConstance;
 import com.jzy.backend.service.LoginService;
 import com.jzy.backend.util.JwtUtil;
 import com.jzy.backend.util.RedisCache;
@@ -60,7 +60,7 @@ public class LoginServiceImpl implements LoginService {
         Map<String, String> map = new HashMap<>();
         map.put("token", jwt);
 
-        redisCache.setCacheObject("login: " + userid, userDetails);
+        redisCache.setCacheObject(RedisConstance.LOGIN + userid, userDetails);
 
         return new LoginVO(jwt);
     }
@@ -80,6 +80,6 @@ public class LoginServiceImpl implements LoginService {
         UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
         Long userid = userDetails.getUser().getId();
 
-        redisCache.deleteObject("login: " + userid);
+        redisCache.deleteObject(RedisConstance.LOGIN + userid);
     }
 }

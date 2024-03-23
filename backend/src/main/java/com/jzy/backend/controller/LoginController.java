@@ -1,12 +1,12 @@
 package com.jzy.backend.controller;
 
-import com.jzy.backend.DO.ResponseResult;
+import com.jzy.backend.VO.ResponseResult;
 import com.jzy.backend.DO.User;
+import com.jzy.backend.constance.ResponseResultConstance;
 import com.jzy.backend.service.LoginService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -23,12 +23,12 @@ public class LoginController {
 
     @PostMapping("/user/login/")
     public ResponseResult login(@RequestBody User user){
-        return new ResponseResult(200, "登录成功", loginService.login(user));
+        return new ResponseResult(ResponseResultConstance.code.SUCCESS, ResponseResultConstance.msg.SUCCESSFUL_LOGIN, loginService.login(user));
     }
 
     @PostMapping("/user/logout/")
     public ResponseResult logout() {
         loginService.logout();
-        return new ResponseResult(200, "注销成功");
+        return new ResponseResult(ResponseResultConstance.code.SUCCESS, ResponseResultConstance.msg.SUCCESSFUL_CANCELLATION);
     }
 }
