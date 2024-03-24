@@ -1,5 +1,6 @@
 package com.jzy.backend;
 
+import com.jzy.backend.DAO.MenuDAO;
 import com.jzy.backend.DAO.UserDAO;
 import com.jzy.backend.DO.User;
 import org.junit.jupiter.api.Test;
@@ -28,6 +29,15 @@ public class DAOTest {
         String encode2 = passwordEncoder.encode("123");
         System.out.println(encode1);
         System.out.println(encode2);
+    }
+
+    @Autowired
+    private MenuDAO menuDAO;
+
+    @Test
+    public void testSelectPermsByUserId() {
+        List<String> list = menuDAO.selectPermsByUserId(2L);
+        System.out.println(list);
     }
 
     @Test

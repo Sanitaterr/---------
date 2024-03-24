@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class Test {
 
     @PostMapping("/test/")
-    @PreAuthorize("hasAuthority('test')")
+    @PreAuthorize("hasAuthority('system:dept:list')")
     public String test(){
         return "Hello World";
     }

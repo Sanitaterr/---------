@@ -5,6 +5,7 @@ import com.jzy.backend.DO.User;
 import com.jzy.backend.constance.ResponseResultConstance;
 import com.jzy.backend.service.LoginService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -23,12 +24,12 @@ public class LoginController {
 
     @PostMapping("/user/login/")
     public ResponseResult login(@RequestBody User user){
-        return new ResponseResult(ResponseResultConstance.code.SUCCESS, ResponseResultConstance.msg.SUCCESSFUL_LOGIN, loginService.login(user));
+        return new ResponseResult(HttpStatus.OK.value(), ResponseResultConstance.msg.SUCCESSFUL_LOGIN, loginService.login(user));
     }
 
     @PostMapping("/user/logout/")
     public ResponseResult logout() {
         loginService.logout();
-        return new ResponseResult(ResponseResultConstance.code.SUCCESS, ResponseResultConstance.msg.SUCCESSFUL_CANCELLATION);
+        return new ResponseResult(HttpStatus.OK.value(), ResponseResultConstance.msg.SUCCESSFUL_CANCELLATION);
     }
 }

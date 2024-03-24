@@ -3,6 +3,7 @@ package com.jzy.backend.service.impl;
 import com.jzy.backend.DO.User;
 import com.jzy.backend.DTO.UserDetailsImpl;
 import com.jzy.backend.VO.LoginVO;
+import com.jzy.backend.constance.ExceptionConstance;
 import com.jzy.backend.constance.RedisConstance;
 import com.jzy.backend.service.LoginService;
 import com.jzy.backend.util.JwtUtil;
@@ -51,7 +52,7 @@ public class LoginServiceImpl implements LoginService {
 
         // 理论上登录失败UsernamePasswordAuthenticationToken会自动处理
         if (Objects.isNull(authenticate)) {
-            throw new RuntimeException("登录失败");
+            throw new RuntimeException(ExceptionConstance.LOGIN_FAILURE);
         }
 
         UserDetailsImpl userDetails = (UserDetailsImpl) authenticate.getPrincipal();

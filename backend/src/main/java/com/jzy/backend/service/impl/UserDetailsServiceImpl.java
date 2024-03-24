@@ -1,9 +1,11 @@
 package com.jzy.backend.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.jzy.backend.DAO.MenuDAO;
 import com.jzy.backend.DAO.UserDAO;
 import com.jzy.backend.DO.User;
 import com.jzy.backend.DTO.UserDetailsImpl;
+import com.jzy.backend.constance.ExceptionConstance;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -27,6 +29,9 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Autowired
     private UserDAO userDAO;
 
+    @Autowired
+    private MenuDAO menuDAO;
+
     /**
      *
      * 查询用户信息，查询对应权限信息
@@ -43,11 +48,11 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         queryWrapper.eq(User::getUsername, username);
         User user = userDAO.selectOne(queryWrapper);
         if (Objects.isNull(user)){
-            throw new UsernameNotFoundException("用户名不存在");
+            throw new UsernameNotFoundException(ExceptionConstance.USERNAME_DOES_NOT_EXIST);
         }
 
         //TODO 查询对应权限信息
-        List<String> list = new ArrayList<>(Arrays.asList("test", "admin"));
+        List<String> list = menuDAO.selectPermsByUserId(user.getId());
 
         // 将数据封装为UserDetails返回
         return new UserDetailsImpl(user, list);
