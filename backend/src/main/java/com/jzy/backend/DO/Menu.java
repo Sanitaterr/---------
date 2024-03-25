@@ -17,7 +17,7 @@ import java.util.Date;
  * Create by 2024/3/23 21:33
  * @Description: TODO
  */
-@TableName(value = "sys_menu")
+@TableName(value = "menu")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor

@@ -1,6 +1,7 @@
 package com.jzy.backend.service.impl;
 
 import com.jzy.backend.DO.User;
+import com.jzy.backend.DTO.LoginUserDTO;
 import com.jzy.backend.DTO.UserDetailsImpl;
 import com.jzy.backend.VO.LoginVO;
 import com.jzy.backend.constance.ExceptionConstance;
@@ -36,18 +37,18 @@ public class LoginServiceImpl implements LoginService {
 
     /**
      *
-     * @param user
+     * @param loginUserDTO
      * @return ResponseResult
      * @author jzy
      * @create 2024/3/22
      **/
     @Override
-    public LoginVO login(User user) {
+    public LoginVO login(LoginUserDTO loginUserDTO) {
         // 使用AuthenticationManager认证
         // 如果没通过给出对应提示;反之使用userid生成jwt存入ResponseResult返回
         // 把完整用户信息存入redis，userid作为key
 
-        UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword());
+        UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(loginUserDTO.getUsername(), loginUserDTO.getPassword());
         Authentication authenticate = authenticationManager.authenticate(authenticationToken);
 
         // 理论上登录失败UsernamePasswordAuthenticationToken会自动处理

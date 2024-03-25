@@ -1,5 +1,6 @@
 package com.jzy.backend.DO;
 
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.AllArgsConstructor;
@@ -20,7 +21,7 @@ import java.util.Date;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@TableName("sys_user")
+@TableName("user")
 public class User implements Serializable {
     private static final long serialVersionUID = -2345346245624356L;
 

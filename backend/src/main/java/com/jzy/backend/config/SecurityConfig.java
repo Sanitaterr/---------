@@ -57,6 +57,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 // 对于登录接口 只允许未认证状态访问
                 .antMatchers("/user/login/").anonymous()
+                .antMatchers("/user/register/").anonymous()
                 // permitAll无论认证与否都能访问
                 .antMatchers("/doc.html","/webjars/**","/img.icons/**","/swagger-resources/**","/**","/v2/api-docs").permitAll()
                 // 除上面外的所有请求全部需要鉴权认证

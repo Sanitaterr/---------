@@ -1,5 +1,6 @@
 package com.jzy.backend.controller;
 
+import com.jzy.backend.DTO.LoginUserDTO;
 import com.jzy.backend.VO.ResponseResult;
 import com.jzy.backend.DO.User;
 import com.jzy.backend.constance.ResponseResultConstance;
@@ -23,8 +24,8 @@ public class LoginController {
     private LoginService loginService;
 
     @PostMapping("/user/login/")
-    public ResponseResult login(@RequestBody User user){
-        return new ResponseResult(HttpStatus.OK.value(), ResponseResultConstance.msg.SUCCESSFUL_LOGIN, loginService.login(user));
+    public ResponseResult login(@RequestBody LoginUserDTO loginUserDTO){
+        return new ResponseResult(HttpStatus.OK.value(), ResponseResultConstance.msg.SUCCESSFUL_LOGIN, loginService.login(loginUserDTO));
     }
 
     @PostMapping("/user/logout/")

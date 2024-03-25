@@ -1,6 +1,7 @@
 package com.jzy.backend.service;
 
 import com.jzy.backend.DO.User;
+import com.jzy.backend.DTO.LoginUserDTO;
 import com.jzy.backend.VO.LoginVO;
 
 /**
@@ -10,7 +11,7 @@ import com.jzy.backend.VO.LoginVO;
  * @Description: TODO
  */
 public interface LoginService {
-    LoginVO login(User user);
+    LoginVO login(LoginUserDTO loginUserDTO);
 
     void logout();
 }
